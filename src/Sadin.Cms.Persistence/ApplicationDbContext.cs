@@ -1,6 +1,4 @@
-using Sadin.Cms.Domain.Abstractions;
-
-namespace Sadin.Cms.Infrastructure;
+namespace Sadin.Cms.Persistence;
 
 public sealed class ApplicationDbContext : DbContext, IUnitOfWork
 {

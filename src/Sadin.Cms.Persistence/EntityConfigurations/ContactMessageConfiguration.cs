@@ -1,4 +1,4 @@
-namespace Sadin.Cms.Infrastructure.EntityConfigurations;
+namespace Sadin.Cms.Persistence.EntityConfigurations;
 
 public sealed class ContactMessageConfiguration : IEntityTypeConfiguration<ContactMessage>
 {
