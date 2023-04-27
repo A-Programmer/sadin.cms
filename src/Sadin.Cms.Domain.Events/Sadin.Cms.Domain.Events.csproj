@@ -24,7 +24,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sadin.Cms.Shared\Sadin.Cms.Shared.csproj" />
+    <PackageReference Include="Sadin.Common" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
