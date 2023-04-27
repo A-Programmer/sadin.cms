@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sadin.Cms.Domain\Sadin.Cms.Domain.csproj" />
+    <ProjectReference Include="..\Sadin.Cms.Shared\Sadin.Cms.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

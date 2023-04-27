@@ -3,6 +3,11 @@ namespace Sadin.Cms.Domain.Primitives;
 public abstract class Entity : IEquatable<Entity>
 {
     protected Entity(Guid id) => Id = id;
+
+    protected Entity()
+    {
+    }
+
     public Guid Id { get; private init; }
 
     public static bool operator ==(Entity? first, Entity? second) =>

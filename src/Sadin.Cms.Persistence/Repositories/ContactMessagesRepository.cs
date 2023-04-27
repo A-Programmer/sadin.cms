@@ -1,6 +1,4 @@
-using Sadin.Cms.Shared.Exceptions.InfrastructureExceptions;
-
-namespace Sadin.Cms.Infrastructure.Repositories;
+namespace Sadin.Cms.Persistence.Repositories;
 
 public sealed class ContactMessagesRepository : IContactMessagesRepository
 {
@@ -10,4 +8,10 @@ public sealed class ContactMessagesRepository : IContactMessagesRepository
 
     public void Insert(ContactMessage message) =>
         _dbContext.Set<ContactMessage>().Add(message);
+
+    public async Task<ContactMessage?> GetById(Guid id, CancellationToken cancellationToken)
+    {
+        return await _dbContext.Set<ContactMessage>()
+            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+    }
 }

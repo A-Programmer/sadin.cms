@@ -12,13 +12,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sadin.Cms.Domain.Events\Sadin.Cms.Domain.Events.csproj" />
-    <ProjectReference Include="..\Sadin.Cms.Shared\Sadin.Cms.Shared.csproj" />
+    <PackageReference Include="MediatR.Contracts" Version="2.0.1" />
+    <PackageReference Include="Sadin.Cms.Domain.Events" Version="1.0.0" />
+    <PackageReference Include="Sadin.Common" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR.Contracts" Version="2.0.1" />
-    <PackageReference Include="Sadin.Common" Version="1.0.0" />
+    <ProjectReference Include="..\Sadin.Cms.Shared\Sadin.Cms.Shared.csproj" />
   </ItemGroup>
 
 </Project>

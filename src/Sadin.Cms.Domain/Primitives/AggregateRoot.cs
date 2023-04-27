@@ -1,4 +1,4 @@
-using Sadin.Cms.Shared.Abstractions;
+using Sadin.Common.Abstractions;
 
 namespace Sadin.Cms.Domain.Primitives;
 
@@ -9,6 +9,13 @@ public abstract class AggregateRoot : Entity
         : base(id)
     {
     }
+
+    protected AggregateRoot()
+    {
+    }
+
+    public IReadOnlyCollection<IDomainEvent> GetDomainEvents() => _domainEvents.ToList();
+    public void ClearDomainEvents() => _domainEvents.Clear();
 
     protected void RaiseDomainEvent(IDomainEvent domainEvent) =>
         _domainEvents.Add(domainEvent);
