@@ -1,6 +1,5 @@
 using Sadin.Cms.Domain.Aggregates.ContactUs;
 using Sadin.Cms.Domain.Aggregates.ContactUs.ValueObjects;
-using Sadin.Cms.Shared.Result;
 
 namespace Sadin.Cms.Application.ContactUs.Commands.CreateMessage;
 

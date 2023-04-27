@@ -1,5 +1,3 @@
-using Sadin.Cms.Shared.Exceptions.InfrastructureExceptions;
-
 namespace Sadin.Cms.Infrastructure.Repositories;
 
 public sealed class ContactMessagesRepository : IContactMessagesRepository

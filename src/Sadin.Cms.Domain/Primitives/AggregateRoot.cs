@@ -1,4 +1,4 @@
-using Sadin.Cms.Shared.Abstractions;
+using Sadin.Common.Abstractions;
 
 namespace Sadin.Cms.Domain.Primitives;
 

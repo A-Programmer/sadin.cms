@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Sadin.Common.Exceptions.DomainExceptions;
 
 namespace Sadin.Cms.Application.Common.Behaviours;
 public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
