@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Humanizer.Core" Version="2.14.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sadin.Cms.Application\Sadin.Cms.Application.csproj" />
+    <ProjectReference Include="..\Sadin.Cms.Domain\Sadin.Cms.Domain.csproj" />
+    <ProjectReference Include="..\Sadin.Cms.Infrastructure\Sadin.Cms.Infrastructure.csproj" />
+    <ProjectReference Include="..\Sadin.Cms.Presentation\Sadin.Cms.Presentation.csproj" />
+    <ProjectReference Include="..\Sadin.Cms.Shared\Sadin.Cms.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
