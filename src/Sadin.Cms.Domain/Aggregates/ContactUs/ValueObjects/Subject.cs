@@ -8,6 +8,11 @@ public sealed class Subject : ValueObject
         Value = value;
     }
 
+    protected Subject()
+    {
+        
+    }
+
     public static Subject Create(string subject)
     {
         if (string.IsNullOrWhiteSpace(subject))

@@ -7,9 +7,14 @@ public sealed class PhoneNumber : ValueObject
         Value = value;
     }
 
+    protected PhoneNumber()
+    {
+        
+    }
+
     public static PhoneNumber Create(string mobile)
     {
-        if (!string.IsNullOrWhiteSpace(mobile) && mobile.IsValidMobile()) throw new DomainValidationException("Phone number is not valid.");
+        if (!string.IsNullOrWhiteSpace(mobile) && !mobile.IsValidMobile()) throw new DomainValidationException("Phone number is not valid.");
         return new PhoneNumber(mobile);
     }
 

@@ -1,0 +1,1 @@
+dotnet ef --startup-project src/Sadin.Cms.Api/Sadin.Cms.Api.csproj migrations add "Message" -p src/Sadin.Cms.Persistence/Sadin.Cms.Persistence.csproj

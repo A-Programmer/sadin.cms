@@ -7,18 +7,25 @@ public sealed class ContactMessageConfiguration : IEntityTypeConfiguration<Conta
         builder.ToTable("ContactMessages");
         builder.HasKey(x => x.Id);
         
-        builder.Property(x => x.FullName)
-            .IsRequired()
-            .HasMaxLength(250);
-        builder.Property(x => x.Email)
-            .IsRequired()
-            .HasMaxLength(500);
-        builder.Property(x => x.PhoneNumber)
-            .HasMaxLength(50);
-        builder.Property(x => x.Subject)
-            .IsRequired()
-            .HasMaxLength(500);
-        builder.Property(x => x.Content)
-            .IsRequired();
+        builder
+            .OwnsOne(x => x.FullName)
+            .Property(x => x.Value)
+            .HasColumnName("FullName");
+        builder
+            .OwnsOne(x => x.Email)
+            .Property(x => x.Value)
+            .HasColumnName("Email");
+        builder
+            .OwnsOne(x => x.PhoneNumber)
+            .Property(x => x.Value)
+            .HasColumnName("PhoneNumber");
+        builder
+            .OwnsOne(x => x.Subject)
+            .Property(x => x.Value)
+            .HasColumnName("Subject");
+        builder
+            .OwnsOne(x => x.Content)
+            .Property(x => x.Value)
+            .HasColumnName("Content");
     }
 }

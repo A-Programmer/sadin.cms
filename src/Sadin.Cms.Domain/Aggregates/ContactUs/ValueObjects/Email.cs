@@ -7,11 +7,16 @@ public sealed class Email : ValueObject
         Value = value;
     }
 
+    protected Email()
+    {
+        
+    }
+
     public static Email Create(string email)
     {
         if (string.IsNullOrWhiteSpace(email))
             throw new DomainArgumentNullException($"{nameof(email)} can not be null or whitespace.");
-        if (email.IsValidEmail())
+        if (!email.IsValidEmail())
             throw new DomainValidationException("Email is not valid.");
         return new Email(email);
     }
