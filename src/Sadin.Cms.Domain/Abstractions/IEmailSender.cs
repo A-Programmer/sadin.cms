@@ -1,4 +1,4 @@
-namespace Sadin.Cms.Application.Abstractions;
+namespace Sadin.Cms.Domain.Abstractions;
 
 public interface IEmailSender
 {

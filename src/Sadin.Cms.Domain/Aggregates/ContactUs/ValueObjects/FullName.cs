@@ -8,6 +8,11 @@ public sealed class FullName : ValueObject
         Value = value;
     }
 
+    protected FullName()
+    {
+        
+    }
+
     public static FullName Create(string fullName)
     {
         if (string.IsNullOrWhiteSpace(fullName))

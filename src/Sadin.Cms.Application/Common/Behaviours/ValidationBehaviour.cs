@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Sadin.Common.Exceptions.DomainExceptions;
 
 namespace Sadin.Cms.Application.Common.Behaviours;
 public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
@@ -38,7 +37,7 @@ public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TReque
         
         // TODO: Fix the DomainValidationException
         if (errorsDictionary.Any())
-            throw new DomainValidationException(/*errorsDictionary*/);
+            throw new NotImplementedException(); //DomainValidationException(errorsDictionary);
         
         return await next();
     }

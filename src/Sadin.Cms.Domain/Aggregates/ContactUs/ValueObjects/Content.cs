@@ -7,6 +7,11 @@ public sealed class Content : ValueObject
         Value = value;
     }
 
+    protected Content()
+    {
+        
+    }
+
     public static Content Create(string content)
     {
         if (string.IsNullOrWhiteSpace(content))

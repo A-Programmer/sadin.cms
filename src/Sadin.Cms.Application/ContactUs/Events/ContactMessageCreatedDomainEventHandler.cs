@@ -1,4 +1,3 @@
-using Sadin.Cms.Application.Abstractions;
 using Sadin.Cms.Domain.Aggregates.ContactUs;
 
 namespace Sadin.Cms.Application.ContactUs.Events;
