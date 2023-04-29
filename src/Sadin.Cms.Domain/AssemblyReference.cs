@@ -1,6 +1,8 @@
+using System.Reflection;
+
 namespace Sadin.Cms.Domain;
 
-public class AssemblyReference
+public static class AssemblyReference
 {
-    
+    public static readonly Assembly Assembly = typeof(AssemblyReference).Assembly;
 }

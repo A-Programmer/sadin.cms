@@ -1,10 +1,8 @@
-// using System.Data;
-
 using Sadin.Cms.Domain.Aggregates.ContactUs;
 
 namespace Sadin.Cms.Application.ContactUs.Queries.GetContactMessageById;
 
-public sealed class GetContactMessageByIdQueryHandler : IQueryHandler<GetContactMessageByIdQuery, Result<ContactMessageResponse>>
+public sealed class GetContactMessageByIdQueryHandler : IQueryHandler<GetContactMessageByIdQuery, ContactMessageResponse>
 {
     private readonly IContactMessagesRepository _contactMessagesRepository;
 
