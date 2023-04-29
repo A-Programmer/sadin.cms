@@ -3,7 +3,7 @@ using Sadin.Cms.Domain.Aggregates.ContactUs.ValueObjects;
 
 namespace Sadin.Cms.Application.ContactUs.Commands.CreateMessage;
 
-public sealed class CreateMessageCommandHandler : ICommandHandler<CreateMessageCommand, Result<CreateMessageCommandResponse>>
+public sealed class CreateMessageCommandHandler : ICommandHandler<CreateMessageCommand, CreateMessageCommandResponse>
 {
     private readonly IContactMessagesRepository _contactUsRepository;
     private readonly IUnitOfWork _uow;

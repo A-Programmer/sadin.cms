@@ -1,4 +1,9 @@
 ﻿namespace Sadin.Cms.Application.Common.Commands;
-public interface ICommand<out TResult> : IRequest<TResult>
+
+public interface ICommand : IRequest<Result>
+{
+}
+
+public interface ICommand<TResponse> : IRequest<Result<TResponse>>
 {
 }

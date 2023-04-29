@@ -2,7 +2,7 @@ namespace Sadin.Cms.Domain.Aggregates.ContactUs.ValueObjects;
 
 public sealed class Subject : ValueObject
 {
-    private const int MaxLength = 500;
+    public const int MaxLength = 500;
     private Subject(string value)
     {
         Value = value;

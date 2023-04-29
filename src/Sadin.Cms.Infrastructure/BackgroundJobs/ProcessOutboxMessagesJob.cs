@@ -1,6 +1,8 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Polly;
+using Polly.Retry;
 using Quartz;
 using Sadin.Cms.Persistence;
 using Sadin.Cms.Persistence.Outbox;
@@ -40,7 +42,17 @@ public class ProcessOutboxMessagesJob : IJob
             if (domainEvent is null)
                 continue;
             
-            await _publisher.Publish(domainEvent, context.CancellationToken);
+            AsyncRetryPolicy policy =Policy
+                .Handle<Exception>()
+                .WaitAndRetryAsync(
+                    3,
+                    attempt => TimeSpan.FromMilliseconds(50 * attempt));
+            PolicyResult result = await policy.ExecuteAndCaptureAsync(() =>
+                _publisher
+                    .Publish(
+                        domainEvent,
+                        context.CancellationToken));
+            outboxMessage.Error = result.FinalException?.ToString();
             outboxMessage.ProcessedDate = DateTimeOffset.Now;
         }
 

@@ -10,8 +10,6 @@ public sealed class CreateContactMessageViewModel
     public string Email { get; set; }
     [Required]
     public string PhoneNumber { get; set; }
-    [Required]
     public string Subject { get; set; }
-    [Required]
     public string Content { get; set; }
 }
