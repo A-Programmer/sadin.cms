@@ -1,8 +1,7 @@
 namespace Sadin.Cms.Domain.Events.ContactUsEvents;
 
-public sealed class ContactMessageCreatedDomainEvent : IDomainEvent
+public sealed record ContactMessageCreatedDomainEvent(Guid Id)
+    : DomainEvent(Id, DateTimeOffset.Now)
 {
-    public Guid Id { get; set; }
     public string ContactMessageSerialized { get; set; }
-    public DateTimeOffset OccurredOn { get; } = DateTimeOffset.Now;
 }
