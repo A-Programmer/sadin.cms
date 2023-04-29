@@ -8,7 +8,7 @@ public static class Extensions
     public static IServiceCollection AddPresentationServices(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddControllers()
-            .AddApplicationPart(typeof(AssemblyReference).Assembly);
+            .AddApplicationPart(Application.AssemblyReference.Assembly);
         return serviceCollection;
     }
 

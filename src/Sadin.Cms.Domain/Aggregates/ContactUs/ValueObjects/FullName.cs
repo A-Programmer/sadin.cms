@@ -2,7 +2,7 @@ namespace Sadin.Cms.Domain.Aggregates.ContactUs.ValueObjects;
 
 public sealed class FullName : ValueObject
 {
-    private const int MaxLength = 150;
+    public const int MaxLength = 150;
     private FullName(string value)
     {
         Value = value;

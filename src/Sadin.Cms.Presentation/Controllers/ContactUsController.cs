@@ -31,19 +31,19 @@ public sealed class ContactUsController : ApiController
     public async Task<IActionResult> Get(Guid id, CancellationToken cancellationToken)
     {
         GetContactMessageByIdQuery query = new(id);
-        var result = await Sender.Send(query);
-        return Ok(result);
+        var result = await Sender.Send(query, cancellationToken);
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
     }
 
     [HttpPost()]
     [Route(Routes.ContactUs.Post.Add)]
-    public async Task<IActionResult> Post(CreateContactMessageViewModel viewModel)
+    public async Task<IActionResult> Post(CreateContactMessageViewModel viewModel, CancellationToken cancellationToken)
     {
         CreateMessageCommand command = new(viewModel.FullName, viewModel.Email, viewModel.PhoneNumber,
             viewModel.Subject, viewModel.Content);
         
-        var result = await Sender.Send(command);
+        var result = await Sender.Send(command, cancellationToken);
         
-        return Ok(result);
+        return result.IsSuccess ? Ok(result.Value) : HandleFailure(result);
     }
 }
