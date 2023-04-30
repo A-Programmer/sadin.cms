@@ -27,6 +27,7 @@ public sealed class CreateMessageCommandHandler : ICommandHandler<CreateMessageC
         
         _contactUsRepository.Insert(message);
         await _uow.SaveChangesAsync(cancellationToken);
+        
         return new CreateMessageCommandResponse(message);
     }
 }
