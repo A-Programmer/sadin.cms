@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Logging;
-using Sadin.Cms.Domain.Abstractions;
 
 namespace Sadin.Cms.Infrastructure.EmailServices;
 

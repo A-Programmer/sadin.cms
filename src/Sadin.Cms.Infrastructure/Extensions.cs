@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
-using Sadin.Cms.Domain.Abstractions;
 using Sadin.Cms.Infrastructure.BackgroundJobs;
 using Sadin.Cms.Infrastructure.EmailServices;
 
