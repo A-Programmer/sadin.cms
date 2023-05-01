@@ -1,4 +1,7 @@
-﻿namespace Sadin.Cms.Application.Common.Events;
+﻿using MediatR;
+using Sadin.Common.Abstractions;
+
+namespace Sadin.Cms.Domain.Abstractions;
 
 public interface IDomainEventHandler<T> : INotificationHandler<T> where T : IDomainEvent
 {
