@@ -16,14 +16,20 @@ public sealed class CreateMessageCommandHandler : ICommandHandler<CreateMessageC
 
     public async Task<Result<CreateMessageCommandResponse>> Handle(CreateMessageCommand request, CancellationToken cancellationToken)
     {
+        Result<FullName> fullNameResult = FullName.Create(request.FullName);
+        Result<Email> emailResult = Email.Create(request.Email);
+        Result<PhoneNumber> phoneNumberResult = PhoneNumber.Create(request.PhoneNumber);
+        Result<Subject> subjectResult = Subject.Create(request.Subject);
+        Result<Content> contentResult = Content.Create(request.Content);
+        
         var message = ContactMessage
             .Create(
                 Guid.NewGuid(),
-                FullName.Create(request.FullName),
-                Email.Create(request.Email),
-                PhoneNumber.Create(request.PhoneNumber),
-                Subject.Create(request.Subject),
-                Content.Create(request.Content));
+                fullNameResult.Value,
+                emailResult.Value,
+                phoneNumberResult.Value,
+                subjectResult.Value,
+                contentResult.Value);
         
         _contactUsRepository.Insert(message);
         await _uow.SaveChangesAsync(cancellationToken);
