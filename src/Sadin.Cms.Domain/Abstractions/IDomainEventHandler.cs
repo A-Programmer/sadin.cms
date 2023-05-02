@@ -3,7 +3,7 @@ using Sadin.Common.Abstractions;
 
 namespace Sadin.Cms.Domain.Abstractions;
 
-public interface IDomainEventHandler<T> : INotificationHandler<T>
+public interface IDomainEventHandler<in T> : INotificationHandler<T>
     where T : DomainEvent
 {
 

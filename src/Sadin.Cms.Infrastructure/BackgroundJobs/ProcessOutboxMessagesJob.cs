@@ -41,7 +41,7 @@ public class ProcessOutboxMessagesJob : IJob
             
             if (domainEvent is null)
                 continue;
-            
+
             AsyncRetryPolicy policy =Policy
                 .Handle<Exception>()
                 .WaitAndRetryAsync(
