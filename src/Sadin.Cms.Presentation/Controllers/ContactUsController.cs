@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Sadin.Cms.Application.ContactUs.Commands.CreateMessage;
+using Sadin.Cms.Application.ContactUs.Commands.DeleteMessage;
 using Sadin.Cms.Application.ContactUs.Queries.GetContactMessageById;
 using Sadin.Cms.Presentation.Constants;
 using Sadin.Cms.Presentation.ViewModels.ContactUs;
@@ -45,5 +46,16 @@ public sealed class ContactUsController : ApiController
         var result = await Sender.Send(command, cancellationToken);
         
         return result.IsSuccess ? Ok(result.Value) : HandleFailure(result);
+    }
+
+    [HttpDelete()]
+    [Route(Routes.ContactUs.Delete.Remove)]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
+    {
+        DeleteContactMessageCommand command = new(id);
+        
+        var result = await Sender.Send(command, cancellationToken);
+        
+        return result.IsSuccess ? Ok(result) : HandleFailure(result);
     }
 }

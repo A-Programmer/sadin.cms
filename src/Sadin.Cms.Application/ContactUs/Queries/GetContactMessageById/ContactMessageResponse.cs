@@ -12,8 +12,8 @@ public sealed class ContactMessageResponse
         PhoneNumber = message.PhoneNumber.Value;
         Subject = message.Subject.Value;
         Content = message.Content.Value;
-        CreatedDate = message.CreatedDate;
-        UpdatedDate = message.UpdatedDate;
+        CreatedOnUtc = message.CreatedOnUtc;
+        ModifiedOnUtc = message.ModifiedOnUtc;
     }
 
     public Guid Id { get; private set; }
@@ -22,6 +22,6 @@ public sealed class ContactMessageResponse
     public string PhoneNumber { get; private set; }
     public string Subject { get; private set; }
     public string Content { get; private set; }
-    public DateTimeOffset CreatedDate { get; private set; }
-    public DateTimeOffset? UpdatedDate { get; private set; }
+    public DateTimeOffset CreatedOnUtc { get; private set; }
+    public DateTimeOffset? ModifiedOnUtc { get; private set; }
 }
