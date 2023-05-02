@@ -50,6 +50,7 @@ public sealed class UnitOfWork : IUnitOfWork
 
     private void UpdateAuditableEntities()
     {
+        _dbContext.ChangeTracker.DetectChanges();
         IEnumerable<EntityEntry<IAuditableEntity>> entries =
             _dbContext
                 .ChangeTracker
@@ -57,14 +58,29 @@ public sealed class UnitOfWork : IUnitOfWork
 
         foreach (EntityEntry<IAuditableEntity> entityEntry in entries)
         {
-            if (entityEntry.State == EntityState.Added)
+            entityEntry.DetectChanges();
+            switch (entityEntry.State)
             {
-                entityEntry.Property(a => a.CreatedOnUtc)
-                    .CurrentValue = DateTimeOffset.Now;
-                if (entityEntry.State == EntityState.Modified)
+                case EntityState.Added:
+                {
+                    entityEntry.Property(a => a.CreatedOnUtc)
+                        .CurrentValue = DateTimeOffset.Now;
+                    break;
+                }
+                case EntityState.Modified:
                 {
                     entityEntry.Property(a => a.ModifiedOnUtc)
                         .CurrentValue = DateTimeOffset.Now;
+                    break;
+                }
+                case EntityState.Deleted:
+                {
+                    Entity entity = (Entity)entityEntry.Entity;
+                    entity.Delete();
+                    entityEntry.Property(x => x.ModifiedOnUtc)
+                        .CurrentValue = DateTimeOffset.Now;
+                    entityEntry.State = EntityState.Modified;
+                    break;
                 }
             }
         }

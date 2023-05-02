@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+
 namespace Sadin.Cms.Persistence.Repositories;
 
 public sealed class ContactMessagesRepository : IContactMessagesRepository
@@ -8,6 +10,13 @@ public sealed class ContactMessagesRepository : IContactMessagesRepository
 
     public void Insert(ContactMessage message) =>
         _dbContext.Set<ContactMessage>().Add(message);
+
+    public void Delete(ContactMessage message)
+    {
+        _dbContext.ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
+        _dbContext.ChangeTracker.DeleteOrphansTiming = CascadeTiming.OnSaveChanges;
+        _dbContext.Set<ContactMessage>().Remove(message);
+    }
 
     public async Task<ContactMessage?> GetById(Guid id, CancellationToken cancellationToken)
     {

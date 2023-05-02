@@ -13,7 +13,7 @@ public sealed class CreateMessageCommandResponse
         Subject = message.Subject.Value;
         Content = message.Content.Value;
         IsChecked = message.IsChecked;
-        CreatedDate = message.CreatedDate;
+        CreatedOnUtc = message.CreatedOnUtc;
     }
 
     public Guid Id { get; private init; }
@@ -23,5 +23,5 @@ public sealed class CreateMessageCommandResponse
     public string Subject { get; private init; }
     public string Content { get; private init; }
     public bool IsChecked { get; private init; }
-    public DateTimeOffset CreatedDate { get; private init; }
+    public DateTimeOffset CreatedOnUtc { get; private init; }
 }
