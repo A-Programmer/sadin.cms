@@ -6,7 +6,8 @@ using Sadin.Common.Abstractions;
 
 namespace Sadin.Cms.Infrastructure.Idempotence;
 
-public sealed class IdempotentDomainEventHandler<TDomainEvent> : IDomainEventHandler<TDomainEvent>
+public class IdempotentDomainEventHandler<TDomainEvent>
+    : IDomainEventHandler<TDomainEvent>
     where TDomainEvent : DomainEvent
 {
     private readonly INotificationHandler<TDomainEvent> _decorated;
@@ -32,6 +33,8 @@ public sealed class IdempotentDomainEventHandler<TDomainEvent> : IDomainEventHan
         {
             return;
         }
+
+        await _decorated.Handle(notification, cancellationToken);
 
         _dbContext.Set<OutboxMessageConsumer>()
             .Add(new()

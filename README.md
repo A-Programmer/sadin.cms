@@ -22,4 +22,4 @@ Also, by using UnitOfWork we are not making repositories responsible for persist
 When we use IUnitOfWork, we can easily mock it for unit tests.  
 
 
-dotnet ef --startup-project src/Sadin.Cms.Api/Sadin.Cms.Api.csproj migrations add "Message" -p src/Sadin.Cms.Persistence/Sadin.Cms.Persistence.csproj
+dotnet ef --startup-project src/Sadin.Cms.Api/Sadin.Cms.Api.csproj migrations add "SoftDeleteFeature_Add" -p src/Sadin.Cms.Persistence/Sadin.Cms.Persistence.csproj

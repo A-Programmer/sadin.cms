@@ -1,8 +1,10 @@
+using Sadin.Cms.Persistence.EntityConfigurations.Base;
+
 namespace Sadin.Cms.Persistence.EntityConfigurations;
 
-public sealed class ContactMessageConfiguration : IEntityTypeConfiguration<ContactMessage>
+public sealed class ContactMessageConfiguration : EntityMapBase<ContactMessage>
 {
-    public void Configure(EntityTypeBuilder<ContactMessage> builder)
+    public override void Configure(EntityTypeBuilder<ContactMessage> builder)
     {
         builder.ToTable("ContactMessages");
         builder.HasKey(x => x.Id);
@@ -27,5 +29,7 @@ public sealed class ContactMessageConfiguration : IEntityTypeConfiguration<Conta
             .OwnsOne(x => x.Content)
             .Property(x => x.Value)
             .HasColumnName("Content");
+        
+        base.Configure(builder);
     }
 }

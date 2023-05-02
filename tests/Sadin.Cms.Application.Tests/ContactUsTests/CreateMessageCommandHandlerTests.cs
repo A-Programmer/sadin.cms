@@ -1,22 +1,29 @@
 using System.Text;
 using FluentAssertions;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using Sadin.Cms.Application.ContactUs.Commands.CreateMessage;
 using Sadin.Cms.Domain.Abstractions;
 using Sadin.Cms.Domain.Aggregates.ContactUs;
+using Sadin.Cms.Domain.Events.ContactUsEvents;
+using Sadin.Cms.Infrastructure.Idempotence;
 using Sadin.Common.Exceptions.DomainExceptions;
 using Sadin.Common.Result;
+using Xunit.Abstractions;
 
 namespace Sadin.Cms.Application.Tests.ContactUsTests;
 
 // TODO : Add domain event and event handlers tests
 public class CreateMessageCommandHandlerTests
 {
+    private readonly ITestOutputHelper _output;
     private readonly IContactMessagesRepository _contactMessagesRepositoryMock;
     private readonly IUnitOfWork _uowMock;
 
-    public CreateMessageCommandHandlerTests()
+    public CreateMessageCommandHandlerTests(ITestOutputHelper output)
     {
+        _output = output;
         _contactMessagesRepositoryMock = Substitute
             .For<IContactMessagesRepository>();
         
