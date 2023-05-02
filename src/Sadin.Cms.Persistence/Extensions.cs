@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Configuration;
-using Sadin.Cms.Persistence.Interceptors;
 
 namespace Sadin.Cms.Persistence;
 
@@ -7,14 +6,10 @@ public static class Extensions
 {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
-        serviceCollection.AddScoped<ConvertDomainEventsToOutboxMessagesInterceptor>();
-        
         serviceCollection.AddDbContext<CmsDbContext>((sp, options) =>
         {
-            var interceptor = sp.GetService<ConvertDomainEventsToOutboxMessagesInterceptor>();
             options.UseSqlServer(configuration.GetConnectionString("SqlServer"),
-                x => x.MigrationsAssembly("Sadin.Cms.Persistence"))
-                .AddInterceptors(interceptor);
+                x => x.MigrationsAssembly("Sadin.Cms.Persistence"));
         });
         
         serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();

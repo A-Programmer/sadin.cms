@@ -21,7 +21,7 @@ public sealed class ContactMessageCreatedDomainEventHandler
             return;
         await _emailSender.SendEmail(
             message.Email.Value,
-            "Hey there, we got your message.",
-            "Hi there, we got your message, we will response to your message ASAP");
+            $"Hey {message.FullName}, we got your message.",
+            $"Hi dear {message.FullName}, we got your message, we will response to your message ASAP");
     }
 }
