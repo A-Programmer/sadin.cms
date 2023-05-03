@@ -1,4 +1,11 @@
-# Guid
+# Guide
+
+## TODO:
+- Adding Update process for ContactMessage, Command/Query Handlers, Validators, Repository methods, etc.
+- Adding HTTPUpdate Method to the controller and test the flow.
+- Adding GetAllMessages feature (Including ApplicationLater, Persistence Layer, Presentation Layer, Infrastructure Layer, etc.)
+- Check all features of ContactUs and release this version.
+- 
 
 ## Idempotent:  
 Currently, we are using Polly to make sure that we will try to re-publish events if there was any issue/error while trying for the first time (We can try as many as times we need).  
