@@ -8,9 +8,13 @@ namespace Sadin.Cms.Persistence;
 public sealed class UnitOfWork : IUnitOfWork
 {
     private readonly CmsDbContext _dbContext;
+    private readonly ICurrentUserService _currentUserService;
 
-    public UnitOfWork(CmsDbContext dbContext)
-        => _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+    public UnitOfWork(CmsDbContext dbContext, ICurrentUserService currentUserService)
+    {
+        _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+        _currentUserService = currentUserService ?? throw new ArgumentNullException(nameof(currentUserService));
+    }
 
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
@@ -59,26 +63,23 @@ public sealed class UnitOfWork : IUnitOfWork
         foreach (EntityEntry<IAuditableEntity> entityEntry in entries)
         {
             entityEntry.DetectChanges();
+            Entity entity = (Entity)entityEntry.Entity;
             switch (entityEntry.State)
             {
                 case EntityState.Added:
                 {
-                    entityEntry.Property(a => a.CreatedOnUtc)
-                        .CurrentValue = DateTimeOffset.Now;
+                    entity.SetCreatorInfo(DateTimeOffset.Now, _currentUserService.GetCurrentUser().UserName);
                     break;
                 }
                 case EntityState.Modified:
                 {
-                    entityEntry.Property(a => a.ModifiedOnUtc)
-                        .CurrentValue = DateTimeOffset.Now;
+                    entity.SetModifierInfo(DateTimeOffset.Now, _currentUserService.GetCurrentUser().UserName);
                     break;
                 }
                 case EntityState.Deleted:
                 {
-                    Entity entity = (Entity)entityEntry.Entity;
                     entity.Delete();
-                    entityEntry.Property(x => x.ModifiedOnUtc)
-                        .CurrentValue = DateTimeOffset.Now;
+                    entity.SetModifierInfo(DateTimeOffset.Now, _currentUserService.GetCurrentUser().UserName);
                     entityEntry.State = EntityState.Modified;
                     break;
                 }
