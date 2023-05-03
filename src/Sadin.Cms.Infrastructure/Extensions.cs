@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
+using Sadin.Cms.Infrastructure.Authentication;
 using Sadin.Cms.Infrastructure.BackgroundJobs;
 using Sadin.Cms.Infrastructure.EmailServices;
 
@@ -25,6 +27,10 @@ public static class Extensions
             configure.UseMicrosoftDependencyInjectionJobFactory();
         });
         serviceCollection.AddQuartzHostedService();
+        serviceCollection.AddScoped<IUserSession, UserSession>();
+        serviceCollection.AddScoped<ICurrentUserService, CurrentUserService>();
+        serviceCollection.AddHttpContextAccessor();
+        
         return serviceCollection;
     }
 
