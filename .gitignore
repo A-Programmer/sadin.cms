@@ -11,6 +11,7 @@ src/.vs/
 **/.code/
 **/.vscode/
 **/.idea/
+**/[Mm]igrations/
 
 ## .NET files
 **/[Dd]ebug/
