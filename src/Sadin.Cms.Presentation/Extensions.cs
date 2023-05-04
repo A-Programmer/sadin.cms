@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,7 +9,11 @@ public static class Extensions
     public static IServiceCollection AddPresentationServices(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddControllers()
-            .AddApplicationPart(Application.AssemblyReference.Assembly);
+            .AddApplicationPart(Application.AssemblyReference.Assembly)
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+            });
         return serviceCollection;
     }
 

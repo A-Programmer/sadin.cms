@@ -24,7 +24,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Sadin.Common" Version="1.0.4" />
+    <PackageReference Include="Sadin.Common" Version="1.0.7" />
   </ItemGroup>
 
 </Project>
