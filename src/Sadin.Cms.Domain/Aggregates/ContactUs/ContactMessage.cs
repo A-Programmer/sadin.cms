@@ -44,6 +44,4 @@ public sealed class ContactMessage : AggregateRoot, IAuditableEntity
     public Subject Subject { get; private set; }
     public Content Content { get; private set; }
     public bool IsChecked { get; private set; }
-    public DateTimeOffset CreatedOnUtc { get; set; }
-    public DateTimeOffset? ModifiedOnUtc { get; set; }
 }
