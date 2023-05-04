@@ -2,8 +2,12 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Sadin.Cms.Application.ContactUs.Commands.CreateMessage;
 using Sadin.Cms.Application.ContactUs.Commands.DeleteMessage;
+using Sadin.Cms.Application.ContactUs.Commands.MarkMessageAsRead;
+using Sadin.Cms.Application.ContactUs.Commands.MarkMessageAsUnread;
+using Sadin.Cms.Application.ContactUs.Queries.GetAllContactMessages;
 using Sadin.Cms.Application.ContactUs.Queries.GetContactMessageById;
 using Sadin.Cms.Presentation.Constants;
+using Sadin.Cms.Presentation.ViewModels;
 using Sadin.Cms.Presentation.ViewModels.ContactUs;
 
 namespace Sadin.Cms.Presentation.Controllers;
@@ -36,6 +40,32 @@ public sealed class ContactUsController : ApiController
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
     }
 
+    [HttpGet]
+    [Route(Routes.ContactUs.Get.GetAll)]
+    public async Task<IActionResult> Get(
+        [FromQuery] PaginationViewModel paginationViewModel,
+        [FromQuery] SearchingViewModel searchingViewModel,
+        [FromQuery] OrderingViewModel orderingViewModel,
+        CancellationToken cancellationToken = default)
+    {
+        GetAllContactMessagesQuery query = new(
+            paginationViewModel.PageIndex,
+            paginationViewModel.PageSize,
+            searchingViewModel.SearchTerm ?? String.Empty,
+            orderingViewModel.OrderByPropertyName ?? "Id",
+            orderingViewModel.Descending);
+        
+        var result = await Sender.Send(query, cancellationToken);
+        
+        return result.IsSuccess
+            ? CustomPagedOk(result.Value,
+                result.PageIndex,
+                result.TotalPages,
+                result.TotalItems,
+                result.ShowPagination)
+            : BadRequest(result.Error);
+    }
+
     [HttpPost()]
     [Route(Routes.ContactUs.Post.Add)]
     public async Task<IActionResult> Post(CreateContactMessageViewModel viewModel, CancellationToken cancellationToken)
@@ -46,6 +76,28 @@ public sealed class ContactUsController : ApiController
         var result = await Sender.Send(command, cancellationToken);
         
         return result.IsSuccess ? Ok(result.Value) : HandleFailure(result);
+    }
+
+    [HttpPut]
+    [Route(Routes.ContactUs.Edit.MarkAsRead)]
+    public async Task<IActionResult> MarkAsRead(Guid id, CancellationToken cancellationToken)
+    {
+        MarkMessageAsReadCommand command = new(id);
+
+        var result = await Sender.Send(command, cancellationToken);
+
+        return result.IsSuccess ? Ok(result) : HandleFailure(result);
+    }
+    
+    [HttpPut]
+    [Route(Routes.ContactUs.Edit.MarkAsUnread)]
+    public async Task<IActionResult> MarkAsUnread(Guid id, CancellationToken cancellationToken)
+    {
+        MarkMessageAsUnreadCommand command = new(id);
+    
+        var result = await Sender.Send(command, cancellationToken);
+    
+        return result.IsSuccess ? Ok(result) : HandleFailure(result);
     }
 
     [HttpDelete()]

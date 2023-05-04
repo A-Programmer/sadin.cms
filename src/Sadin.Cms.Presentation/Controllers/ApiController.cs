@@ -39,6 +39,18 @@ public class ApiController : ControllerBase
         };
     
     [NonAction]
+    protected ActionResult CustomPagedOk(object data,
+        int? pageIndex,
+        int? totalPages,
+        int? totalItems,
+        bool? showPagination,
+        string message = "")
+    {
+        
+        return Ok(Result<object>.CreatePaginatedResult(data, true, Error.None, pageIndex, totalPages, totalItems, showPagination));
+    }
+    
+    [NonAction]
     protected ActionResult CustomError(Error error)
     {
         return BadRequest(Result.Failure(error));
