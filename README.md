@@ -15,7 +15,7 @@ Now, again the background job will run and processes the un finished events and 
 With idempotent we will take care of this issue, in this scenario we will have another entity (Let's call it OutboxMessageConsumers) which will hold the event consumers (EventHandlers) and while we process the events, before running the event handler we check the OutboxMessageConsumer table to see if there is no consumer with this name, if there was, we will do nothing, if there wasn't we will run the event handler, then after running the event handler we will add this event handler to the OutboxMessageConsumer table to make sure next time, we don't run this event handler.  
 
 ## CQRS Unit Tests:
-This part is not completed, I just added some test methods to check whether CreateContatcMessageCommandHandler creates the new record, mostly, it is checking for null arguments.  
+This part is not completed, I just added some test methods to check whether CreateContactMessageCommandHandler creates the new record, mostly, it is checking for null arguments.  
 **TODO**  
 1. Add new test methods to check whether DomainEvent is raised.
 2. Add new test method to check whether EventHandler is handling the Event or not.
