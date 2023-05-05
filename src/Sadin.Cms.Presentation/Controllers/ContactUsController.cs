@@ -1,3 +1,4 @@
+using System.Net;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Sadin.Cms.Application.ContactUs.Commands.CreateMessage;
@@ -9,6 +10,8 @@ using Sadin.Cms.Application.ContactUs.Queries.GetContactMessageById;
 using Sadin.Cms.Presentation.Constants;
 using Sadin.Cms.Presentation.ViewModels;
 using Sadin.Cms.Presentation.ViewModels.ContactUs;
+using Sadin.Common.Pagination;
+using Sadin.Common.Result;
 
 namespace Sadin.Cms.Presentation.Controllers;
 
@@ -33,6 +36,8 @@ public sealed class ContactUsController : ApiController
     /// <returns>The ContactMessage with the specific identifier, if it exists.</returns>
     [HttpGet()]
     [Route(Routes.ContactUs.Get.GetById)]
+    [ProducesResponseType(typeof(Result<GetContactMessageByIdResponse>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(BadRequestResult) ,(int)HttpStatusCode.BadRequest)]
     public async Task<IActionResult> Get(Guid id, CancellationToken cancellationToken)
     {
         GetContactMessageByIdQuery query = new(id);
@@ -42,6 +47,8 @@ public sealed class ContactUsController : ApiController
 
     [HttpGet]
     [Route(Routes.ContactUs.Get.GetAll)]
+    [ProducesResponseType(typeof(Result<PaginatedList<GetAllContactMessagesResponse>>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(BadRequestResult) ,(int)HttpStatusCode.BadRequest)]
     public async Task<IActionResult> Get(
         [FromQuery] PaginationViewModel paginationViewModel,
         [FromQuery] SearchingViewModel searchingViewModel,
@@ -66,8 +73,10 @@ public sealed class ContactUsController : ApiController
             : BadRequest(result.Error);
     }
 
-    [HttpPost()]
+    [HttpPost]
     [Route(Routes.ContactUs.Post.Add)]
+    [ProducesResponseType(typeof(Result<CreateMessageCommandResponse>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(ProblemDetails) ,(int)HttpStatusCode.BadRequest)]
     public async Task<IActionResult> Post(CreateContactMessageViewModel viewModel, CancellationToken cancellationToken)
     {
         CreateMessageCommand command = new(viewModel.FullName, viewModel.Email, viewModel.PhoneNumber,
@@ -80,6 +89,8 @@ public sealed class ContactUsController : ApiController
 
     [HttpPut]
     [Route(Routes.ContactUs.Edit.MarkAsRead)]
+    [ProducesResponseType(typeof(Result), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest)]
     public async Task<IActionResult> MarkAsRead(Guid id, CancellationToken cancellationToken)
     {
         MarkMessageAsReadCommand command = new(id);
@@ -91,6 +102,8 @@ public sealed class ContactUsController : ApiController
     
     [HttpPut]
     [Route(Routes.ContactUs.Edit.MarkAsUnread)]
+    [ProducesResponseType(typeof(Result), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest)]
     public async Task<IActionResult> MarkAsUnread(Guid id, CancellationToken cancellationToken)
     {
         MarkMessageAsUnreadCommand command = new(id);
