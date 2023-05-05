@@ -2,7 +2,7 @@ namespace Sadin.Cms.Presentation.Constants;
 
 public static class Routes
 {
-    public const string BaseRootAddress = "api/[controller]";
+    public const string BaseRootAddress = "api/v1/[controller]";
     public const string SignIn = "";
     public const string SignOut = "";
     public const string SignUp = "";
