@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Sadin.Cms.Domain;
 
-public static class Extensions
+public static class DependencyInjection
 {
     public static IServiceCollection AddDomainServices(this IServiceCollection serviceCollection)
     {

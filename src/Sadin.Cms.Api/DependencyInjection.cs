@@ -2,7 +2,7 @@ using Sadin.Cms.Api.Middlewares;
 
 namespace Sadin.Cms.Api;
 
-public static class Extensions
+public static class DependencyInjection
 {
     public static IServiceCollection AddApiServices(this IServiceCollection serviceCollection)
     {

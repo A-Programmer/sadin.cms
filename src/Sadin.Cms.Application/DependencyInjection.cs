@@ -7,7 +7,7 @@ using Sadin.Cms.Infrastructure.Idempotence;
 
 namespace Sadin.Cms.Application;
 
-public static class Extensions
+public static class DependencyInjection
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
