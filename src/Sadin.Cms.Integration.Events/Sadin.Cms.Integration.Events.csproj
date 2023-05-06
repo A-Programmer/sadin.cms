@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    
-    <PackageId>Sadin.Cms.Domain.Events</PackageId>
+
+    <PackageId>Sadin.Cms.Integration.Events</PackageId>
     <Version>1.0.1</Version>
     <Authors>Kamran Sadin</Authors>
     <Company>Sadin</Company>
@@ -14,13 +14,12 @@
     <PackageIconUrl>https://api.nuget.org/v3-flatcontainer/ks-utilities/1.0.0.2/icon</PackageIconUrl>
     <Owners>Kamran Sadin</Owners>
     <PackageProjectUrl>https://sadin.dev/projects/sadin/domain-events</PackageProjectUrl>
-    <Summary>Domain Events of CMS microservice</Summary>
+    <Summary>Integration Events of CMS microservice</Summary>
     <PackageTags>Sadin,Kamran,ddd,domain-events,sadin-cms</PackageTags>
-    <Title>Sadin.Cms.Domain.Events</Title>
-    <Description>This package contains domain events of CMS project.</Description>
-    <ReleaseNotes>ContactMessageCreatedDomainEvent updated.</ReleaseNotes>
+    <Title>Sadin.Cms.Integration.Events</Title>
+    <Description>This package contains Integration events of CMS project.</Description>
+    <ReleaseNotes>Initialize</ReleaseNotes>
     <RepositoryUrl>https://github.com/A-Programmer/sadin.cms</RepositoryUrl>
-  
   </PropertyGroup>
 
   <ItemGroup>

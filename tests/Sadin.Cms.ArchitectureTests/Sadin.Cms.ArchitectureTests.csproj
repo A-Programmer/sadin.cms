@@ -21,7 +21,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Sadin.Cms.Api\Sadin.Cms.Api.csproj" />
     <ProjectReference Include="..\..\src\Sadin.Cms.Application\Sadin.Cms.Application.csproj" />
-    <ProjectReference Include="..\..\src\Sadin.Cms.Domain.Events\Sadin.Cms.Domain.Events.csproj" />
     <ProjectReference Include="..\..\src\Sadin.Cms.Domain\Sadin.Cms.Domain.csproj" />
     <ProjectReference Include="..\..\src\Sadin.Cms.Infrastructure\Sadin.Cms.Infrastructure.csproj" />
     <ProjectReference Include="..\..\src\Sadin.Cms.Persistence\Sadin.Cms.Persistence.csproj" />

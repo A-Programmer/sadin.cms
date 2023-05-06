@@ -1,0 +1,28 @@
+version: '3.4'
+
+networks:
+  sadinnetwork:
+    name: sadinnetwork
+services:
+  sadin.cms:
+    image: ${DOCKER_REGISTRY-}sadin.cms
+    networks:
+      - sadinnetwork
+    expose:
+      - "80"
+    build:
+      context: .
+      dockerfile: src/Dockerfile
+    depends_on:
+      - sqlserver
+    links:
+      - sqlserver
+  sqlserver:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    networks:
+      - sadinnetwork
+    environment:
+      - SA_PASSWORD=Manager2017
+      - ACCEPT_EULA=Y
+    ports:
+      - "1450:1433"

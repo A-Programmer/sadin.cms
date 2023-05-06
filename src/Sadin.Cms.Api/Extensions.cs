@@ -22,7 +22,7 @@ public static class Extensions
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-        app.UseHttpsRedirection();
+        
         app.UseAuthorization();
         app.MapControllers();
         return app;

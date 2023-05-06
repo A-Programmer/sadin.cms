@@ -1,0 +1,38 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+WORKDIR /Cms
+COPY ["Cms/src/Sadin.Cms.Api/Sadin.Cms.Api.csproj", "src/Sadin.Cms.Api/"]
+COPY ["Cms/src/Sadin.Cms.Application/Sadin.Cms.Application.csproj", "src/Sadin.Cms.Application/"]
+COPY ["Cms/src/Sadin.Cms.Domain/Sadin.Cms.Domain.csproj", "src/Sadin.Cms.Domain/"]
+COPY ["Cms/src/Sadin.Cms.Shared/Sadin.Cms.Shared.csproj", "src/Sadin.Cms.Shared/"]
+COPY ["Cms/src/Sadin.Cms.Infrastructure/Sadin.Cms.Infrastructure.csproj", "src/Sadin.Cms.Infrastructure/"]
+COPY ["Cms/src/Sadin.Cms.Persistence/Sadin.Cms.Persistence.csproj", "src/Sadin.Cms.Persistence/"]
+COPY ["Cms/src/Sadin.Cms.Presentation/Sadin.Cms.Presentation.csproj", "src/Sadin.Cms.Presentation/"]
+RUN dotnet restore "/Cms/src/Sadin.Cms.Api/Sadin.Cms.Api.csproj"
+
+WORKDIR /Cms/src
+COPY /Cms/src/Sadin.Cms.Api ./Sadin.Cms.Api
+COPY /Cms/src/Sadin.Cms.Application ./Sadin.Cms.Application
+COPY /Cms/src/Sadin.Cms.Domain ./Sadin.Cms.Domain
+COPY /Cms/src/Sadin.Cms.Shared ./Sadin.Cms.Shared
+COPY /Cms/src/Sadin.Cms.Infrastructure ./Sadin.Cms.Infrastructure
+COPY /Cms/src/Sadin.Cms.Persistence ./Sadin.Cms.Persistence
+COPY /Cms/src/Sadin.Cms.Presentation ./Sadin.Cms.Presentation
+
+WORKDIR "/Cms/src/Sadin.Cms.Api"
+COPY . .
+RUN dotnet build "Sadin.Cms.Api.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "Sadin.Cms.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "Sadin.Cms.Api.dll"]

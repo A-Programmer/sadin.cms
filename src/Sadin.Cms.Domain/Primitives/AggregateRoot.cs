@@ -1,5 +1,3 @@
-using Sadin.Common.Abstractions;
-
 namespace Sadin.Cms.Domain.Primitives;
 
 public abstract class AggregateRoot : Entity

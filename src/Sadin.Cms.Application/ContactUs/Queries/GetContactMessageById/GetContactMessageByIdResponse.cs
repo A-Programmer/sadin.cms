@@ -2,9 +2,9 @@ using Sadin.Cms.Domain.Aggregates.ContactUs;
 
 namespace Sadin.Cms.Application.ContactUs.Queries.GetContactMessageById;
 
-public sealed class ContactMessageResponse
+public sealed class GetContactMessageByIdResponse
 {
-    public ContactMessageResponse(ContactMessage message)
+    public GetContactMessageByIdResponse(ContactMessage message)
     {
         Id = message.Id;
         FullName = message.FullName.Value;
