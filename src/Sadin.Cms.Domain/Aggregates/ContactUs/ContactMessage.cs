@@ -1,5 +1,5 @@
 using Sadin.Cms.Domain.Aggregates.ContactUs.ValueObjects;
-using Sadin.Cms.Domain.Events.ContactUsEvents;
+using ContactMessageCreatedDomainEvent = Sadin.Cms.Domain.Aggregates.ContactUs.Events.ContactMessageCreatedDomainEvent;
 
 namespace Sadin.Cms.Domain.Aggregates.ContactUs;
 

@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    
+
     <PackageId>Sadin.Cms.Domain.Events</PackageId>
     <Version>1.0.1</Version>
     <Authors>Kamran Sadin</Authors>
@@ -20,7 +20,6 @@
     <Description>This package contains domain events of CMS project.</Description>
     <ReleaseNotes>ContactMessageCreatedDomainEvent updated.</ReleaseNotes>
     <RepositoryUrl>https://github.com/A-Programmer/sadin.cms</RepositoryUrl>
-  
   </PropertyGroup>
 
   <ItemGroup>
