@@ -2,9 +2,6 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sadin.Cms.Presentation.Constants;
-using Sadin.Common.Abstractions;
-using Sadin.Common.Errors;
-using Sadin.Common.Result;
 
 namespace Sadin.Cms.Presentation.Controllers;
 

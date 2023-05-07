@@ -2,7 +2,6 @@ using System.Reflection;
 using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Sadin.Cms.Application.Common.Behaviours;
 using Sadin.Cms.Infrastructure.Idempotence;
 
 namespace Sadin.Cms.Application;

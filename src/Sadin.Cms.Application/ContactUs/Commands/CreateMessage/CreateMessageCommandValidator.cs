@@ -1,6 +1,5 @@
 using FluentValidation;
 using Sadin.Cms.Domain.Aggregates.ContactUs.ValueObjects;
-using Sadin.Common.ExtensionMethods;
 
 namespace Sadin.Cms.Application.ContactUs.Commands.CreateMessage;
 
