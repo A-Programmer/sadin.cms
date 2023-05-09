@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Sadin.Cms.Shared;
 
-public static class Extensions
+public static class DependencyInjection
 {
     public static IServiceCollection AddSharedServices(this IServiceCollection serviceCollection)
     {

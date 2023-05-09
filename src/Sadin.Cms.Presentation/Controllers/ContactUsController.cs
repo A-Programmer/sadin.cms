@@ -10,8 +10,6 @@ using Sadin.Cms.Application.ContactUs.Queries.GetContactMessageById;
 using Sadin.Cms.Presentation.Constants;
 using Sadin.Cms.Presentation.ViewModels;
 using Sadin.Cms.Presentation.ViewModels.ContactUs;
-using Sadin.Common.Pagination;
-using Sadin.Common.Result;
 
 namespace Sadin.Cms.Presentation.Controllers;
 

@@ -2,7 +2,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Sadin.Cms.Persistence;
 
-public static class Extensions
+public static class DependencyInjection
 {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection serviceCollection, IConfiguration configuration)
     {

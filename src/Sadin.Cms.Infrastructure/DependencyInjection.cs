@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 using Sadin.Cms.Infrastructure.Authentication;
@@ -8,7 +7,7 @@ using Sadin.Cms.Infrastructure.EmailServices;
 
 namespace Sadin.Cms.Infrastructure;
 
-public static class Extensions
+public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection serviceCollection)
     {

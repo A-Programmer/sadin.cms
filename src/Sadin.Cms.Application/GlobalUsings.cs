@@ -1,10 +1,12 @@
 // Global using directives
 
+global using System.Linq.Expressions;
 global using MediatR;
-global using Sadin.Cms.Application.Common.Commands;
-global using Sadin.Cms.Application.Common.Queries;
 global using Sadin.Cms.Domain.Abstractions;
-global using Sadin.Cms.Domain.Events.ContactUsEvents;
+global using Sadin.Common;
 global using Sadin.Common.Abstractions;
-global using Sadin.Common.Exceptions.DomainExceptions;
-global using Sadin.Common.Result;
+global using Sadin.Common.ApplicationCommon.Behaviours;
+global using Sadin.Common.ApplicationCommon.Commands;
+global using Sadin.Common.ApplicationCommon.Queries;
+global using Sadin.Common.ExtensionMethods;
+global using Sadin.Common.Pagination;

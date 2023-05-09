@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
 
     <PackageId>Sadin.Cms.Integration.Events</PackageId>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Authors>Kamran Sadin</Authors>
     <Company>Sadin</Company>
     <CopyRight>Copyright (c) 2022 SadinCo.</CopyRight>
@@ -18,12 +18,12 @@
     <PackageTags>Sadin,Kamran,ddd,domain-events,sadin-cms</PackageTags>
     <Title>Sadin.Cms.Integration.Events</Title>
     <Description>This package contains Integration events of CMS project.</Description>
-    <ReleaseNotes>Initialize</ReleaseNotes>
+    <ReleaseNotes>ContactMessageCreatedEvent added to package.</ReleaseNotes>
     <RepositoryUrl>https://github.com/A-Programmer/sadin.cms</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Sadin.Common" Version="1.0.7" />
+    <PackageReference Include="Sadin.Common" Version="1.0.10" />
   </ItemGroup>
 
 </Project>

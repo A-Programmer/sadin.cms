@@ -1,4 +1,5 @@
 using Sadin.Cms.Domain.Aggregates.ContactUs;
+using Sadin.Cms.Domain.Aggregates.ContactUs.Events;
 
 namespace Sadin.Cms.Application.ContactUs.Events;
 

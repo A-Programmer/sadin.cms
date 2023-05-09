@@ -1,6 +1,5 @@
 using Sadin.Cms.Domain.Aggregates.ContactUs;
 using Sadin.Common.Errors;
-using Sadin.Common.Pagination;
 
 namespace Sadin.Cms.Application.ContactUs.Queries.GetAllContactMessages;
 

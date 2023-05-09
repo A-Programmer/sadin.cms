@@ -1,15 +1,11 @@
 using System.Text;
 using FluentAssertions;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using Sadin.Cms.Application.ContactUs.Commands.CreateMessage;
 using Sadin.Cms.Domain.Abstractions;
 using Sadin.Cms.Domain.Aggregates.ContactUs;
-using Sadin.Cms.Domain.Events.ContactUsEvents;
-using Sadin.Cms.Infrastructure.Idempotence;
 using Sadin.Common.Exceptions.DomainExceptions;
-using Sadin.Common.Result;
+using Sadin.Common;
 using Xunit.Abstractions;
 
 namespace Sadin.Cms.Application.Tests.ContactUsTests;
