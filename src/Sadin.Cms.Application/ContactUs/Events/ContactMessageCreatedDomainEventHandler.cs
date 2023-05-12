@@ -9,7 +9,8 @@ public sealed class ContactMessageCreatedDomainEventHandler
     private readonly IEmailSender _emailSender;
     private readonly IContactMessagesRepository _contactUsRepository;
 
-    public ContactMessageCreatedDomainEventHandler(IEmailSender emailSender, IContactMessagesRepository contactUsRepository)
+    public ContactMessageCreatedDomainEventHandler(IEmailSender emailSender,
+        IContactMessagesRepository contactUsRepository)
     {
         _emailSender = emailSender;
         _contactUsRepository = contactUsRepository;

@@ -1,5 +1,7 @@
+using Sadin.Cms.Application.ContactUs.Events;
 using Sadin.Cms.Domain.Aggregates.ContactUs;
 using Sadin.Cms.Domain.Aggregates.ContactUs.ValueObjects;
+using Sadin.Cms.Integration.Events.ContactUs;
 
 namespace Sadin.Cms.Application.ContactUs.Commands.CreateMessage;
 
@@ -7,11 +9,15 @@ public sealed class CreateMessageCommandHandler : ICommandHandler<CreateMessageC
 {
     private readonly IContactMessagesRepository _contactUsRepository;
     private readonly IUnitOfWork _uow;
+    private readonly ContactMessageCreatedEventPublisher _contactMessageCreatedEventPublisher;
 
-    public CreateMessageCommandHandler(IContactMessagesRepository contactUsRepository, IUnitOfWork uow)
+    public CreateMessageCommandHandler(IContactMessagesRepository contactUsRepository,
+        IUnitOfWork uow,
+        ContactMessageCreatedEventPublisher contactMessageCreatedEventPublisher)
     {
         _contactUsRepository = contactUsRepository ?? throw new ArgumentNullException(nameof(contactUsRepository));
         _uow = uow ?? throw new ArgumentNullException(nameof(uow));
+        _contactMessageCreatedEventPublisher = contactMessageCreatedEventPublisher;
     }
 
     public async Task<Result<CreateMessageCommandResponse>> Handle(CreateMessageCommand request, CancellationToken cancellationToken)
@@ -33,6 +39,8 @@ public sealed class CreateMessageCommandHandler : ICommandHandler<CreateMessageC
         
         _contactUsRepository.Insert(message);
         await _uow.SaveChangesAsync(cancellationToken);
+        ContactMessageCreatedEvent contactMessageCreatedEvent = new(request.FullName, request.Email);
+        _contactMessageCreatedEventPublisher.Publish(contactMessageCreatedEvent);
         
         return new CreateMessageCommandResponse(message);
     }

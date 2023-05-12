@@ -2,6 +2,7 @@ using System.Text;
 using FluentAssertions;
 using NSubstitute;
 using Sadin.Cms.Application.ContactUs.Commands.CreateMessage;
+using Sadin.Cms.Application.ContactUs.Events;
 using Sadin.Cms.Domain.Abstractions;
 using Sadin.Cms.Domain.Aggregates.ContactUs;
 using Sadin.Common.Exceptions.DomainExceptions;
@@ -16,6 +17,7 @@ public class CreateMessageCommandHandlerTests
     private readonly ITestOutputHelper _output;
     private readonly IContactMessagesRepository _contactMessagesRepositoryMock;
     private readonly IUnitOfWork _uowMock;
+    private readonly ContactMessageCreatedEventPublisher _contactMessageCreatedEventPublisherMock;
 
     public CreateMessageCommandHandlerTests(ITestOutputHelper output)
     {
@@ -25,6 +27,9 @@ public class CreateMessageCommandHandlerTests
         
         _uowMock = Substitute
             .For<IUnitOfWork>();
+
+        _contactMessageCreatedEventPublisherMock = Substitute
+            .For<ContactMessageCreatedEventPublisher>();
     }
     
     [Fact]
@@ -36,7 +41,7 @@ public class CreateMessageCommandHandlerTests
             "+989308638095", 
             "Hello", 
             "This is a test");
-        CreateMessageCommandHandler handler = new(_contactMessagesRepositoryMock, _uowMock);
+        CreateMessageCommandHandler handler = new(_contactMessagesRepositoryMock, _uowMock, _contactMessageCreatedEventPublisherMock);
         
         var action = async () => await handler.Handle(command, default);
 
@@ -52,7 +57,7 @@ public class CreateMessageCommandHandlerTests
             "+989308638095", 
             "Hello", 
             "This is a test");
-        CreateMessageCommandHandler handler = new(_contactMessagesRepositoryMock, _uowMock);
+        CreateMessageCommandHandler handler = new(_contactMessagesRepositoryMock, _uowMock, _contactMessageCreatedEventPublisherMock);
         
         var action = async () => await handler.Handle(command, default);
 
@@ -68,7 +73,7 @@ public class CreateMessageCommandHandlerTests
             "+989308638095", 
             "Hello", 
             "This is a test");
-        CreateMessageCommandHandler handler = new(_contactMessagesRepositoryMock, _uowMock);
+        CreateMessageCommandHandler handler = new(_contactMessagesRepositoryMock, _uowMock, _contactMessageCreatedEventPublisherMock);
         
         var action = async () => await handler.Handle(command, default);
 
@@ -84,7 +89,7 @@ public class CreateMessageCommandHandlerTests
             "", 
             "Hello", 
             "This is a test");
-        CreateMessageCommandHandler handler = new(_contactMessagesRepositoryMock, _uowMock);
+        CreateMessageCommandHandler handler = new(_contactMessagesRepositoryMock, _uowMock, _contactMessageCreatedEventPublisherMock);
         
         var action = async () => await handler.Handle(command, default);
         
@@ -100,7 +105,7 @@ public class CreateMessageCommandHandlerTests
             "+989308638095", 
             "", 
             "This is a test");
-        CreateMessageCommandHandler handler = new(_contactMessagesRepositoryMock, _uowMock);
+        CreateMessageCommandHandler handler = new(_contactMessagesRepositoryMock, _uowMock, _contactMessageCreatedEventPublisherMock);
         
         var action = async () => await handler.Handle(command, default);
 
@@ -119,7 +124,7 @@ public class CreateMessageCommandHandlerTests
             "+989308638095", 
             stringBuilder.ToString(), 
             "This is a test");
-        CreateMessageCommandHandler handler = new(_contactMessagesRepositoryMock, _uowMock);
+        CreateMessageCommandHandler handler = new(_contactMessagesRepositoryMock, _uowMock, _contactMessageCreatedEventPublisherMock);
         
         var action = async () => await handler.Handle(command, default);
 
@@ -135,7 +140,7 @@ public class CreateMessageCommandHandlerTests
             "+989308638095", 
             "Subject", 
             "");
-        CreateMessageCommandHandler handler = new(_contactMessagesRepositoryMock, _uowMock);
+        CreateMessageCommandHandler handler = new(_contactMessagesRepositoryMock, _uowMock, _contactMessageCreatedEventPublisherMock);
         
         var action = async () => await handler.Handle(command, default);
 
@@ -151,7 +156,7 @@ public class CreateMessageCommandHandlerTests
             "+989308638095", 
             "Hello", 
             "This is a test");
-        CreateMessageCommandHandler handler = new(_contactMessagesRepositoryMock, _uowMock);
+        CreateMessageCommandHandler handler = new(_contactMessagesRepositoryMock, _uowMock, _contactMessageCreatedEventPublisherMock);
         
         Result result = await handler.Handle(command, default);
         
