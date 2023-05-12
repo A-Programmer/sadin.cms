@@ -11,7 +11,7 @@ Configuration = builder.Environment.IsProduction()
 builder.Services.AddApiServices();
 builder.Services.AddPresentationServices();
 builder.Services.AddDomainServices();
-builder.Services.AddApplicationServices();
+builder.Services.AddApplicationServices(Configuration);
 builder.Services.AddPersistenceServices(Configuration);
 builder.Services.AddInfrastructureServices();
 builder.Services.AddSharedServices();

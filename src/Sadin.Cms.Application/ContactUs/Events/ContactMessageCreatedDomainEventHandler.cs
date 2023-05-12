@@ -1,17 +1,20 @@
 using Sadin.Cms.Domain.Aggregates.ContactUs;
 using Sadin.Cms.Domain.Aggregates.ContactUs.Events;
+using Sadin.Cms.Integration.Events.ContactUs;
 
 namespace Sadin.Cms.Application.ContactUs.Events;
 
 public sealed class ContactMessageCreatedDomainEventHandler
     : IDomainEventHandler<ContactMessageCreatedDomainEvent>
 {
-    private readonly IEmailSender _emailSender;
+    private readonly ContactMessageCreatedEventPublisher _contactMessageCreatedEventPublisher;
     private readonly IContactMessagesRepository _contactUsRepository;
 
-    public ContactMessageCreatedDomainEventHandler(IEmailSender emailSender, IContactMessagesRepository contactUsRepository)
+    public ContactMessageCreatedDomainEventHandler(
+        IContactMessagesRepository contactUsRepository,
+        ContactMessageCreatedEventPublisher contactMessageCreatedEventPublisher)
     {
-        _emailSender = emailSender;
+        _contactMessageCreatedEventPublisher = contactMessageCreatedEventPublisher;
         _contactUsRepository = contactUsRepository;
     }
 
@@ -20,9 +23,8 @@ public sealed class ContactMessageCreatedDomainEventHandler
         ContactMessage? message = await _contactUsRepository.GetById(notification.Id, cancellationToken);
         if (message is null)
             return;
-        await _emailSender.SendEmail(
-            message.Email.Value,
-            $"Hey {message.FullName}, we got your message.",
-            $"Hi dear {message.FullName}, we got your message, we will response to your message ASAP");
+        
+        ContactMessageCreatedEvent contactMessageCreatedEvent = new(message.FullName.Value, message.Email.Value);
+        _contactMessageCreatedEventPublisher.Publish(contactMessageCreatedEvent);
     }
 }

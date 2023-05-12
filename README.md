@@ -1,11 +1,17 @@
 # Guide
 
 ## TODO:
-- Adding Update process for ContactMessage, Command/Query Handlers, Validators, Repository methods, etc.
-- Adding HTTPUpdate Method to the controller and test the flow.
-- Adding GetAllMessages feature (Including ApplicationLater, Persistence Layer, Presentation Layer, Infrastructure Layer, etc.)
-- Check all features of ContactUs and release this version.
+src/Sadin.Cms.Application/ContactUs/Events/**ContactMessageCreatedEventPublisher.cs**
+- A : Currently, I am using simplest way to publish events, please refactor and improve considering these items:
+  - 1. Currently, it is working like fire and forget, it doesn't have any retry policy.
+  - 2. Is it possible to implement idempotency for these kind of events same as DomainEvents?  
+- B : Check if I could use another Message Bus like Kafka instead of RabbitMQ (Of course, I don't need to change the Message Bus but it's better to see how it would be hard to change the Message Bus).  
+- C : Is it possible to make the publisher better? Like having an interface or abstract class for subscribe/unsubscribe and inherit from them?
+- D : Use logger instead of using Console.WriteLine.  
 - 
+
+
+
 
 ## Idempotent:  
 Currently, we are using Polly to make sure that we will try to re-publish events if there was any issue/error while trying for the first time (We can try as many as times we need).  

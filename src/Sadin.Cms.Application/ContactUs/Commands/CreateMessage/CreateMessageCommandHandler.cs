@@ -1,5 +1,7 @@
+using Sadin.Cms.Application.ContactUs.Events;
 using Sadin.Cms.Domain.Aggregates.ContactUs;
 using Sadin.Cms.Domain.Aggregates.ContactUs.ValueObjects;
+using Sadin.Cms.Integration.Events.ContactUs;
 
 namespace Sadin.Cms.Application.ContactUs.Commands.CreateMessage;
 
@@ -8,7 +10,8 @@ public sealed class CreateMessageCommandHandler : ICommandHandler<CreateMessageC
     private readonly IContactMessagesRepository _contactUsRepository;
     private readonly IUnitOfWork _uow;
 
-    public CreateMessageCommandHandler(IContactMessagesRepository contactUsRepository, IUnitOfWork uow)
+    public CreateMessageCommandHandler(IContactMessagesRepository contactUsRepository,
+        IUnitOfWork uow)
     {
         _contactUsRepository = contactUsRepository ?? throw new ArgumentNullException(nameof(contactUsRepository));
         _uow = uow ?? throw new ArgumentNullException(nameof(uow));

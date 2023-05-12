@@ -2,6 +2,7 @@ using System.Text;
 using FluentAssertions;
 using NSubstitute;
 using Sadin.Cms.Application.ContactUs.Commands.CreateMessage;
+using Sadin.Cms.Application.ContactUs.Events;
 using Sadin.Cms.Domain.Abstractions;
 using Sadin.Cms.Domain.Aggregates.ContactUs;
 using Sadin.Common.Exceptions.DomainExceptions;
