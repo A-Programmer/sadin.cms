@@ -7,6 +7,14 @@ using Sadin.Cms.Integration.Events.ContactUs;
 
 namespace Sadin.Cms.Application.ContactUs.Events;
 
+// TODO : Currently, I am using simplest way to publish events, please refactor and improve considering these items:
+// 1. Currently, it is working like fire and forget, it doesn't have any retry policy.
+// 2. Is it possible to implement idempotency for these kind of events same as DomainEvents?
+
+// TODO : Check if I could use another Message Bus like Kafka instead of RabbitMQ (Of course, I don't need to change the Message Bus
+// but it's better to see how it would be hard to change the Message Bus)
+
+// TODO : Is it possible to make the publisher better? Like having an interface or abstract class for subscribe/unsubscribe and inherit from them?
 public sealed class ContactMessageCreatedEventPublisher : IDisposable
 {
     private readonly MessagingOptions _messagingOptions;
@@ -27,7 +35,6 @@ public sealed class ContactMessageCreatedEventPublisher : IDisposable
 
         try
         {
-            Console.WriteLine("\n\n\n Connecting to the MessageBus \n\n\n\n");
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
             
@@ -36,6 +43,7 @@ public sealed class ContactMessageCreatedEventPublisher : IDisposable
         }
         catch (Exception e)
         {
+            // TODO : Log the exception instead of Console.WriteLine.
             Console.WriteLine("Could not connect to the MessageBus ===> {0}", e.Message);
         }
     }
@@ -47,7 +55,6 @@ public sealed class ContactMessageCreatedEventPublisher : IDisposable
     
         if (_connection.IsOpen)
         {
-            Console.WriteLine("\n\n\n\n publishing event ...\n\n\n\n");
             var body = Encoding.UTF8.GetBytes(message);
             try
             {
@@ -58,6 +65,7 @@ public sealed class ContactMessageCreatedEventPublisher : IDisposable
             }
             catch (Exception e)
             {
+                // TODO : Log the exception instead of Console.WriteLine
                 Console.WriteLine("\n\n\n\n Could not send the message ==> \n\n {0} \n\n\n\n\n", e.Message);
             }
         }
