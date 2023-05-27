@@ -13,7 +13,7 @@ COPY ["src/Sadin.Cms.Infrastructure/Sadin.Cms.Infrastructure.csproj", "Sadin.Cms
 COPY ["src/Sadin.Cms.Persistence/Sadin.Cms.Persistence.csproj", "Sadin.Cms.Persistence/"]
 COPY ["src/Sadin.Cms.Presentation/Sadin.Cms.Presentation.csproj", "Sadin.Cms.Presentation/"]
 RUN dotnet restore "/Cms/src/Sadin.Cms.Api/Sadin.Cms.Api.csproj"
-COPY ./src .
+COPY ./src/ .
 WORKDIR "/Cms/src/Sadin.Cms.Api"
 RUN dotnet build "Sadin.Cms.Api.csproj" -c Release -o /app/build
 

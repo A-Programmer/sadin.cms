@@ -1,5 +1,9 @@
 # Guide
 
+## Running on docker:
+If you want to run the docker file you should be in the Cms directory at the command line and then run the `docker build -t mrsadin./cms -f src/Dockerfile .` command. Don't forget the . at the end of the command.  
+If you want to run with docker compose you should be at the same directory and run the `docker compose up` command.  
+
 ## TODO:
 src/Sadin.Cms.Application/ContactUs/Events/**ContactMessageCreatedEventPublisher.cs**
 - A : Currently, I am using simplest way to publish events, please refactor and improve considering these items:
