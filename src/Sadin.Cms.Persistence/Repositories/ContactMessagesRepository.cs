@@ -10,7 +10,7 @@ public sealed class ContactMessagesRepository : IContactMessagesRepository
 
     public ContactMessagesRepository(CmsDbContext dbContext) => _dbContext = dbContext ?? throw new InfrastructureArgumentNullException(nameof(dbContext));
 
-    public void Insert(ContactMessage message) =>
+    public void Add(ContactMessage message) =>
         _dbContext.Set<ContactMessage>().Add(message);
 
     public void Delete(ContactMessage message)

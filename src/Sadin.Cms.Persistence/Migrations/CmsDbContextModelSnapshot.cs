@@ -22,6 +22,91 @@ namespace Sadin.Cms.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("AnnouncementCategory", b =>
+                {
+                    b.Property<Guid>("AnnouncementsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CategoriesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("AnnouncementsId", "CategoriesId");
+
+                    b.HasIndex("CategoriesId");
+
+                    b.ToTable("AnnouncementCategory");
+                });
+
+            modelBuilder.Entity("AnnouncementTag", b =>
+                {
+                    b.Property<Guid>("AnnouncementsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TagsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("AnnouncementsId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("AnnouncementTag");
+                });
+
+            modelBuilder.Entity("Sadin.Cms.Domain.Aggregates.Announcements.Announcement", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedOnUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("ModifiedOnUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Announcements", (string)null);
+                });
+
+            modelBuilder.Entity("Sadin.Cms.Domain.Aggregates.Categories.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedOnUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("ModifiedOnUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories", (string)null);
+                });
+
             modelBuilder.Entity("Sadin.Cms.Domain.Aggregates.ContactUs.ContactMessage", b =>
                 {
                     b.Property<Guid>("Id")
@@ -49,6 +134,32 @@ namespace Sadin.Cms.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ContactMessages", (string)null);
+                });
+
+            modelBuilder.Entity("Sadin.Cms.Domain.Aggregates.Tags.Tag", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedOnUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("ModifiedOnUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags", (string)null);
                 });
 
             modelBuilder.Entity("Sadin.Cms.Persistence.Outbox.OutboxMessage", b =>
@@ -92,6 +203,189 @@ namespace Sadin.Cms.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("OutboxMessageConsumers", (string)null);
+                });
+
+            modelBuilder.Entity("AnnouncementCategory", b =>
+                {
+                    b.HasOne("Sadin.Cms.Domain.Aggregates.Announcements.Announcement", null)
+                        .WithMany()
+                        .HasForeignKey("AnnouncementsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Sadin.Cms.Domain.Aggregates.Categories.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AnnouncementTag", b =>
+                {
+                    b.HasOne("Sadin.Cms.Domain.Aggregates.Announcements.Announcement", null)
+                        .WithMany()
+                        .HasForeignKey("AnnouncementsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Sadin.Cms.Domain.Aggregates.Tags.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Sadin.Cms.Domain.Aggregates.Announcements.Announcement", b =>
+                {
+                    b.OwnsOne("Sadin.Cms.Domain.Aggregates.Announcements.ValueObjects.AnnouncementContent", "Content", b1 =>
+                        {
+                            b1.Property<Guid>("AnnouncementId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Content");
+
+                            b1.HasKey("AnnouncementId");
+
+                            b1.ToTable("Announcements");
+
+                            b1.WithOwner()
+                                .HasForeignKey("AnnouncementId");
+                        });
+
+                    b.OwnsOne("Sadin.Cms.Domain.Aggregates.Announcements.ValueObjects.AnnouncementDescription", "Description", b1 =>
+                        {
+                            b1.Property<Guid>("AnnouncementId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Description");
+
+                            b1.HasKey("AnnouncementId");
+
+                            b1.ToTable("Announcements");
+
+                            b1.WithOwner()
+                                .HasForeignKey("AnnouncementId");
+                        });
+
+                    b.OwnsOne("Sadin.Cms.Domain.Aggregates.Announcements.ValueObjects.AnnouncementSlug", "Slug", b1 =>
+                        {
+                            b1.Property<Guid>("AnnouncementId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Slug");
+
+                            b1.HasKey("AnnouncementId");
+
+                            b1.ToTable("Announcements");
+
+                            b1.WithOwner()
+                                .HasForeignKey("AnnouncementId");
+                        });
+
+                    b.OwnsOne("Sadin.Cms.Domain.Aggregates.Announcements.ValueObjects.AnnouncementTitle", "Title", b1 =>
+                        {
+                            b1.Property<Guid>("AnnouncementId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Title");
+
+                            b1.HasKey("AnnouncementId");
+
+                            b1.ToTable("Announcements");
+
+                            b1.WithOwner()
+                                .HasForeignKey("AnnouncementId");
+                        });
+
+                    b.Navigation("Content")
+                        .IsRequired();
+
+                    b.Navigation("Description")
+                        .IsRequired();
+
+                    b.Navigation("Slug")
+                        .IsRequired();
+
+                    b.Navigation("Title")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Sadin.Cms.Domain.Aggregates.Categories.Category", b =>
+                {
+                    b.OwnsOne("Sadin.Cms.Domain.Aggregates.Categories.ValueObjects.CategoryDescription", "Description", b1 =>
+                        {
+                            b1.Property<Guid>("CategoryId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Description");
+
+                            b1.HasKey("CategoryId");
+
+                            b1.ToTable("Categories");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CategoryId");
+                        });
+
+                    b.OwnsOne("Sadin.Cms.Domain.Aggregates.Categories.ValueObjects.CategorySlug", "Slug", b1 =>
+                        {
+                            b1.Property<Guid>("CategoryId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Slug");
+
+                            b1.HasKey("CategoryId");
+
+                            b1.ToTable("Categories");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CategoryId");
+                        });
+
+                    b.OwnsOne("Sadin.Cms.Domain.Aggregates.Categories.ValueObjects.CategoryTitle", "Title", b1 =>
+                        {
+                            b1.Property<Guid>("CategoryId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Title");
+
+                            b1.HasKey("CategoryId");
+
+                            b1.ToTable("Categories");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CategoryId");
+                        });
+
+                    b.Navigation("Description")
+                        .IsRequired();
+
+                    b.Navigation("Slug")
+                        .IsRequired();
+
+                    b.Navigation("Title")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Sadin.Cms.Domain.Aggregates.ContactUs.ContactMessage", b =>
@@ -199,6 +493,72 @@ namespace Sadin.Cms.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Subject")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Sadin.Cms.Domain.Aggregates.Tags.Tag", b =>
+                {
+                    b.OwnsOne("Sadin.Cms.Domain.Aggregates.Tags.ValueObjects.TagName", "Name", b1 =>
+                        {
+                            b1.Property<Guid>("TagId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Name");
+
+                            b1.HasKey("TagId");
+
+                            b1.ToTable("Tags");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TagId");
+                        });
+
+                    b.OwnsOne("Sadin.Cms.Domain.Aggregates.Tags.ValueObjects.TagSlug", "Slug", b1 =>
+                        {
+                            b1.Property<Guid>("TagId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Slug");
+
+                            b1.HasKey("TagId");
+
+                            b1.ToTable("Tags");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TagId");
+                        });
+
+                    b.OwnsOne("Sadin.Cms.Domain.Aggregates.Tags.ValueObjects.TagTitle", "Title", b1 =>
+                        {
+                            b1.Property<Guid>("TagId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Title");
+
+                            b1.HasKey("TagId");
+
+                            b1.ToTable("Tags");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TagId");
+                        });
+
+                    b.Navigation("Name")
+                        .IsRequired();
+
+                    b.Navigation("Slug")
+                        .IsRequired();
+
+                    b.Navigation("Title")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

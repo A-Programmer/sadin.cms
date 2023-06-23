@@ -1,7 +1,5 @@
-using Sadin.Cms.Application.ContactUs.Events;
 using Sadin.Cms.Domain.Aggregates.ContactUs;
 using Sadin.Cms.Domain.Aggregates.ContactUs.ValueObjects;
-using Sadin.Cms.Integration.Events.ContactUs;
 
 namespace Sadin.Cms.Application.ContactUs.Commands.CreateMessage;
 
@@ -34,7 +32,7 @@ public sealed class CreateMessageCommandHandler : ICommandHandler<CreateMessageC
                 subjectResult.Value,
                 contentResult.Value);
         
-        _contactUsRepository.Insert(message);
+        _contactUsRepository.Add(message);
         await _uow.SaveChangesAsync(cancellationToken);
         
         return new CreateMessageCommandResponse(message);

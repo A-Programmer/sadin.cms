@@ -17,7 +17,7 @@ public abstract class Entity : IEquatable<Entity>
     public DateTimeOffset CreatedOnUtc { get; private set; }
 
     /// <summary>
-    /// Gets the creator user name.
+    /// Gets the creator user slug.
     /// </summary>
     public string? CreatedBy { get; private set; }
     /// <summary>
@@ -26,7 +26,7 @@ public abstract class Entity : IEquatable<Entity>
     public DateTimeOffset? ModifiedOnUtc { get; private set; }
 
     /// <summary>
-    /// Gets the modifier user name.
+    /// Gets the modifier user slug.
     /// </summary>
     public string? ModifiedBy { get; private set; }
 

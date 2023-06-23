@@ -29,8 +29,8 @@ public sealed class ContactUsController : ApiController
     /// <summary>
     /// Gets the ContactMessage with the specific identifier, if it exists.
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="cancellationToken"></param>
+    /// <param slug="id"></param>
+    /// <param slug="cancellationToken"></param>
     /// <returns>The ContactMessage with the specific identifier, if it exists.</returns>
     [HttpGet()]
     [Route(Routes.ContactUs.Get.GetById)]

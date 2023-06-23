@@ -39,4 +39,4 @@ Also, by using UnitOfWork we are not making repositories responsible for persist
 When we use IUnitOfWork, we can easily mock it for unit tests.  
 
 
-dotnet ef --startup-project src/Sadin.Cms.Api/Sadin.Cms.Api.csproj migrations add "AuditableProperties_Add" -p src/Sadin.Cms.Persistence/Sadin.Cms.Persistence.csproj
+dotnet ef --startup-project src/Sadin.Cms.Api/Sadin.Cms.Api.csproj migrations add "AnnouncementsEntity_Add" -p src/Sadin.Cms.Persistence/Sadin.Cms.Persistence.csproj

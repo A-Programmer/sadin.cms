@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.HttpOverrides;
 using Sadin.Cms.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,7 +18,10 @@ builder.Services.AddInfrastructureServices();
 builder.Services.AddSharedServices();
 
 var app = builder.Build();
-
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 app.UseApi();
 app.UsePresentation();
 app.UseDomain();
