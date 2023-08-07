@@ -21,4 +21,9 @@
     <PackageReference Include="Scrutor" Version="4.2.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Announcements\Commands" />
+    <Folder Include="Announcements\Events" />
+  </ItemGroup>
+
 </Project>

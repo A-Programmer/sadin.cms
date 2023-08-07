@@ -3,14 +3,14 @@ using Sadin.Common.Errors;
 
 namespace Sadin.Cms.Application.ContactUs.Queries.GetAllContactMessages;
 
-public sealed class GetAllContactMessagesQueryHandler : IQueryHandler<GetAllContactMessagesQuery, PaginatedList<GetAllContactMessagesResponse>>
+public sealed class GetAllContactMessagesQueryHandler : IQueryHandler<GetPaginatedContactMessagesQuery, PaginatedList<GetAllContactMessagesResponse>>
 {
     private readonly IContactMessagesRepository _contactMessagesRepository;
 
     public GetAllContactMessagesQueryHandler(IUnitOfWork uow, IContactMessagesRepository contactMessagesRepository)
         => _contactMessagesRepository = contactMessagesRepository ?? throw new ArgumentNullException(nameof(contactMessagesRepository));
 
-    public async Task<Result<PaginatedList<GetAllContactMessagesResponse>>> Handle(GetAllContactMessagesQuery request, CancellationToken cancellationToken)
+    public async Task<Result<PaginatedList<GetAllContactMessagesResponse>>> Handle(GetPaginatedContactMessagesQuery request, CancellationToken cancellationToken)
     {
         var pagedItems = await _contactMessagesRepository.GetPagedAsync(
             request.PageIndex,

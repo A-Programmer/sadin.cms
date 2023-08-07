@@ -53,7 +53,7 @@ public sealed class ContactUsController : ApiController
         [FromQuery] OrderingViewModel orderingViewModel,
         CancellationToken cancellationToken = default)
     {
-        GetAllContactMessagesQuery query = new(
+        GetPaginatedContactMessagesQuery query = new(
             paginationViewModel.PageIndex,
             paginationViewModel.PageSize,
             searchingViewModel.SearchTerm ?? String.Empty,
